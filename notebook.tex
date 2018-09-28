@@ -1,0 +1,2734 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{???????????3.??}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{ux6536ux96c6}{%
+\subsection{收集}\label{ux6536ux96c6}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{patients} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{patients.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{treatments} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatments.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{adverse\PYZus{}reactions} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adverse\PYZus{}reactions.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux8bc4ux4f30}{%
+\subsection{评估}\label{ux8bc4ux4f30}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{patients}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}      patient\_id assigned\_sex  given\_name       surname  \textbackslash{}
+        0             1       female         Zoe       Wellish   
+        1             2       female      Pamela          Hill   
+        2             3         male         Jae        Debord   
+        3             4         male        Liêm          Phan   
+        4             5         male         Tim       Neudorf   
+        5             6         male      Rafael         Costa   
+        6             7       female        Mary         Adams   
+        7             8       female      Xiuxiu         Chang   
+        8             9         male       Dsvid    Gustafsson   
+        9            10       female      Sophie       Cabrera   
+        10           11       female       Sandy    Gunnarsson   
+        11           12         male   Abdul-Nur           Isa   
+        12           13         male  Omeokachie      Ibeamaka   
+        13           14       female    Anenechi         Chidi   
+        14           15       female        Asia       Woźniak   
+        15           16         male       Søren          Lund   
+        16           17       female         Tám          Liễu   
+        17           18       female     Roxanne     Andreyeva   
+        18           19         male     William         Oates   
+        19           20         male         Zak         Kelly   
+        20           21       female       Sofia       Karlsen   
+        21           22         male      Samúel  Guðbrandsson   
+        22           23         male      Manchu            Su   
+        23           24         male       Lovre         Galić   
+        24           25         male       Jakob      Jakobsen   
+        25           26         male      Gregor          Bole   
+        26           27       female        Ella          Lund   
+        27           28         male      Joseph        Tucker   
+        28           29         male      Robert          Wolf   
+        29           30         male        Jake      Jakobsen   
+        ..          {\ldots}          {\ldots}         {\ldots}           {\ldots}   
+        473         474       female        Kate     Wilkinson   
+        474         475       female   Esperanza      Labrosse   
+        475         476         male       Malik       Vaneker   
+        476         477       female       Berta    Napolitani   
+        477         478         male     Juliusz      Majewski   
+        478         479       female      Edelma   Villalpando   
+        479         480         male        Tapa   Arsanukayev   
+        480         481         male      Nasser       Mansour   
+        481         482         male     Michael    Kristensen   
+        482         483         male       Diogo         Souza   
+        483         484       female       Angel         Grant   
+        484         485         male     Placido       Udinesi   
+        485         486         male      Trifon      Izmailov   
+        486         487         male      Samuel          Blix   
+        487         488         male        Ivar       Löfgren   
+        488         489         male        Mika    Martinsson   
+        489         490       female     Jasmine         Sykes   
+        490         491         male     Jackson       Addison   
+        491         492       female     Vanessa      Ferguson   
+        492         493         male       Poldi           Tar   
+        493         494       female         Fen          Chin   
+        494         495       female      Sirkka     Piirainen   
+        495         496         male      Hajime       Tsukada   
+        496         497         male   Alexander        Hueber   
+        497         498         male    Masataka      Murakami   
+        498         499         male     Mustafa     Lindström   
+        499         500         male       Ruman       Bisliev   
+        500         501       female       Jinke     de Keizer   
+        501         502       female     Chidalu   Onyekaozulu   
+        502         503         male         Pat       Gersten   
+        
+                                address               city       state  zip\_code  \textbackslash{}
+        0          576 Brown Bear Drive  Rancho California  California   92390.0   
+        1     2370 University Hill Road          Armstrong    Illinois   61812.0   
+        2         1493 Poling Farm Road               York    Nebraska   68467.0   
+        3           2335 Webster Street         Woodbridge          NJ    7095.0   
+        4          1428 Turkey Pen Lane             Dothan          AL   36303.0   
+        5            1140 Willis Avenue      Daytona Beach     Florida   32114.0   
+        6              3145 Sheila Lane            Burbank          NV   84728.0   
+        7    2687 Black Oak Hollow Road        Morgan Hill          CA   95037.0   
+        8            1790 Nutter Street        Kansas City          MO   64105.0   
+        9             3303 Anmoore Road           New York    New York   10011.0   
+        10           87 Wood Duck Drive            Rudyard          MI   49780.0   
+        11       1092 Farm Meadow Drive          Brentwood          TN   37027.0   
+        12           2544 Worley Avenue          Lynchburg          VA   24504.0   
+        13             826 Broad Street         Birmingham          AL   35203.0   
+        14        4970 Heather Sees Way              Tulsa          OK   74105.0   
+        15       2438 Shady Pines Drive          Kingsport          VA   37660.0   
+        16           2152 Heritage Road             Fresno  California   93706.0   
+        17          2103 Edington Drive             Smyrna          GA   30082.0   
+        18             441 Tibbs Avenue            Ekalaka          MT   59324.0   
+        19     994 Hill Croft Farm Road           Oroville  California   95966.0   
+        20           2931 Romano Street            Whitman          MA    2382.0   
+        21          1904 Granville Lane           Elmsford          NJ   10523.0   
+        22              1092 Deans Lane      Pleasantville          NY   10570.0   
+        23            4941 Marion Drive       Winter Haven     Florida   33830.0   
+        24            648 Old Dear Lane        Port Jervis    New York   12771.0   
+        25            922 Chapmans Lane        Albuquerque          NM   87109.0   
+        26           1207 Garfield Road             Peoria          IL   61602.0   
+        27             4982 Wood Street             Venice          LA   70091.0   
+        28            2386 Linda Street    Fort Washington          PA   19034.0   
+        29            648 Old Dear Lane        Port Jervis    New York   12771.0   
+        ..                          {\ldots}                {\ldots}         {\ldots}       {\ldots}   
+        473             664 Lyon Avenue       South Boston          MA    2127.0   
+        474           1370 Flint Street            Atlanta          GA   30303.0   
+        475              1270 Haul Road      Mountain View  California   94041.0   
+        476         1815 Garrett Street       Philadelphia          PA   19108.0   
+        477               4435 Poe Road           Florence          SC   29501.0   
+        478           312 Jim Rosa Lane           San Jose          CA   95134.0   
+        479          4720 Gordon Street            Ontario  California   91762.0   
+        480          547 Weekley Street        San Antonio          TX   78212.0   
+        481       1614 Heather Sees Way              Tulsa          OK   74116.0   
+        482           4033 White Avenue     Corpus Christi          TX   78401.0   
+        483         990 Melville Street            Memphis          TN   38118.0   
+        484           1094 Jones Avenue         Greensboro          NC   28716.0   
+        485         3697 Drainer Avenue  Fort Walton Beach          FL   32548.0   
+        486           3488 Clair Street               Waco          TX   76706.0   
+        487        1346 Nicholas Street             Ottawa          KS   66067.0   
+        488           962 George Street              Ocala     Florida   34471.0   
+        489           2607 Water Street          Lafayette  California   94549.0   
+        490          1160 Taylor Street       New Rochelle    New York   10801.0   
+        491         241 Freshour Circle        San Antonio          TX   78205.0   
+        492         3958 Liberty Avenue            Burbank  California   91505.0   
+        493      1826 Poplar Chase Lane              Boise          ID   83702.0   
+        494          4102 Ritter Avenue          Roseville          MI   48066.0   
+        495           4111 Thunder Road          San Mateo          CA   94403.0   
+        496            3868 Freed Drive           Stockton  California   95204.0   
+        497            1179 Patton Lane              Tulsa          OK   74116.0   
+        498         2530 Victoria Court       Milton Mills          ME    3852.0   
+        499    494 Clarksburg Park Road             Sedona          AZ   86341.0   
+        500           649 Nutter Street      Overland Park          MO   64110.0   
+        501    3652 Boone Crockett Lane            Seattle          WA   98109.0   
+        502           2778 North Avenue               Burr    Nebraska   68324.0   
+        
+                   country                                            contact  \textbackslash{}
+        0    United States               951-719-9170ZoeWellish@superrito.com   
+        1    United States              PamelaSHill@cuvox.de+1 (217) 569-3204   
+        2    United States                   402-363-6804JaeMDebord@gustr.com   
+        3    United States         PhanBaLiem@jourrapide.com+1 (732) 636-8246   
+        4    United States                    334-515-7487TimNeudorf@cuvox.de   
+        5    United States           386-334-5237RafaelCardosoCosta@gustr.com   
+        6    United States                  775-533-5933MaryBAdams@einrot.com   
+        7    United States               XiuxiuChang@einrot.com1 408 778 3236   
+        8    United States            816-265-9578DavidGustafsson@armyspy.com   
+        9    United States      SophieCabreraIbarra@teleworm.us1 718 795 9124   
+        10   United States             906-478-8949SandyGunnarsson@dayrep.com   
+        11   United States         Abdul-NurMummarIsa@rhyta.com1 931 207 0839   
+        12   United States          OmeokachieIbeamaka@einrot.com434-509-2614   
+        13   United States         AnenechiChidi@armyspy.com+1 (205) 417-8095   
+        14   United States                  AsiaWozniak@rhyta.com918-712-3469   
+        15   United States                    276-225-1955SrenFLund@gustr.com   
+        16   United States             LieuThiThuTam@dayrep.com1 559 765 7836   
+        17   United States           RoxanneAndreyeva@armyspy.com678-829-8578   
+        18   United States              406-775-2696WilliamVOates@armyspy.com   
+        19   United States                   ZakKelly@rhyta.com1 530 532 8397   
+        20   United States            SofiaTKarlsen@teleworm.us1 781 447 1763   
+        21   United States          973-445-5341SamuelGubrandsson@teleworm.us   
+        22   United States                    914-745-6108ManchuSu@einrot.com   
+        23   United States                 LovreGalic@gustr.com1 813 355 9476   
+        24   United States         JakobCJakobsen@einrot.com+1 (845) 858-7707   
+        25   United States                   GregorBole@gustr.com505-828-4955   
+        26   United States                   309-671-8852EllaLund@armyspy.com   
+        27   United States                985-814-7603JosephNTucker@rhyta.com   
+        28   United States               RobertWolf@fleckens.hu1 267 895 7462   
+        29   United States         JakobCJakobsen@einrot.com+1 (845) 858-7707   
+        ..             {\ldots}                                                {\ldots}   
+        473  United States            KateWilkinson@armyspy.com1 508 905 2371   
+        474  United States          EsperanzaLabrosse@armyspy.com678-263-3564   
+        475  United States             MalikVaneker@superrito.com650-962-7179   
+        476  United States              267-972-3749BertaNapolitani@rhyta.com   
+        477  United States     JuliuszMajewski@superrito.com+1 (843) 212-6421   
+        478  United States  EdelmaVillalpandoSantillan@teleworm.us+1 (415){\ldots}   
+        479  United States           TapaArsanukayev@dayrep.com1 909 458 2515   
+        480  United States       NasserMazinMansour@fleckens.hu1 210 326 5509   
+        481  United States          MichaelKristensen@gustr.com1 918 706 2776   
+        482  United States        361-693-4960DiogoBarrosSouza@jourrapide.com   
+        483  United States                 731-577-0292AngelGrant@fleckens.hu   
+        484  United States              336-697-2005PlacidoUdinesi@dayrep.com   
+        485  United States           TrifonIzmailov@fleckens.hu1 850 659 0417   
+        486  United States                  254-681-4504SamuelBlix@dayrep.com   
+        487  United States              IvarLofgren@armyspy.com1 785 229 1188   
+        488  United States             352-453-4601MikaMartinsson@armyspy.com   
+        489  United States            JasmineSykes@jourrapide.com925-283-5425   
+        490  United States             914-636-9304JacksonAddison@armyspy.com   
+        491  United States         210-222-8684VanessaFerguson@jourrapide.com   
+        492  United States                 714-496-2264TarPoldi@superrito.com   
+        493  United States                 FenChin@gustr.com+1 (208) 388-1065   
+        494  United States       SirkkaPiirainen@teleworm.us+1 (586) 790-0975   
+        495  United States               650-570-4896HajimeTsukada@dayrep.com   
+        496  United States       AlexanderHueber@jourrapide.com1 209 762 2320   
+        497  United States       MasatakaMurakami@einrot.com+1 (918) 984-9171   
+        498  United States        207-477-0579MustafaLindstrom@jourrapide.com   
+        499  United States                 928-284-4492RumanBisliev@gustr.com   
+        500  United States              816-223-6007JinkedeKeizer@teleworm.us   
+        501  United States    ChidaluOnyekaozulu@jourrapide.com1 360 443 2060   
+        502  United States               PatrickGersten@rhyta.com402-848-4923   
+        
+              birthdate  weight  height   bmi  
+        0     7/10/1976   121.7      66  19.6  
+        1      4/3/1967   118.8      66  19.2  
+        2     2/19/1980   177.8      71  24.8  
+        3     7/26/1951   220.9      70  31.7  
+        4     2/18/1928   192.3      27  26.1  
+        5     8/31/1931   183.9      70  26.4  
+        6    11/19/1969   146.3      65  24.3  
+        7     8/13/1958   158.0      60  30.9  
+        8      3/6/1937   163.9      66  26.5  
+        9     12/3/1930   194.7      64  33.4  
+        10    7/16/1974   199.3      62  36.4  
+        11     2/3/1954   238.7      73  31.5  
+        12     8/5/1957   224.2      69  33.1  
+        13     3/7/1961   228.4      67  35.8  
+        14    8/15/1997   112.0      65  18.6  
+        15    8/23/1922   201.5      64  34.6  
+        16   11/14/1952   183.9      61  34.7  
+        17    7/24/1922   129.1      60  25.2  
+        18     9/4/1949   202.2      64  34.7  
+        19   12/13/1988   208.8      70  30.0  
+        20    9/24/1934   153.1      66  24.7  
+        21    4/12/1983   223.7      69  33.0  
+        22    1/19/1936   130.7      65  21.7  
+        23    5/26/1960   222.9      66  36.0  
+        24     8/1/1985   155.8      67  24.4  
+        25    6/19/1922   180.8      67  28.3  
+        26   12/19/1933   144.8      61  27.4  
+        27    4/10/1959   175.8      72  23.8  
+        28    6/26/1937   206.6      70  29.6  
+        29     8/1/1985   155.8      67  24.4  
+        ..          {\ldots}     {\ldots}     {\ldots}   {\ldots}  
+        473   7/18/1998   175.3      65  29.2  
+        474   10/7/1961   181.5      63  32.1  
+        475   9/25/1953   214.4      67  33.6  
+        476   12/2/1958   153.3      63  27.2  
+        477   9/29/1966   212.1      69  31.3  
+        478   6/24/1977   109.6      63  19.4  
+        479   9/15/1955   220.0      65  36.6  
+        480   3/25/1938   183.5      66  29.6  
+        481   8/10/1930   154.7      65  25.7  
+        482    3/3/1945   220.0      65  36.6  
+        483   8/14/1987   123.9      61  23.4  
+        484   5/31/1934   175.8      65  29.3  
+        485   2/15/1973   255.9      74  32.9  
+        486    7/6/1983   211.4      74  27.1  
+        487   11/7/1962   242.4      77  28.7  
+        488   1/27/1970   165.0      67  25.8  
+        489   12/1/1988   187.2      63  33.2  
+        490   5/29/1953   192.7      69  28.5  
+        491   9/21/1950   149.8      67  23.5  
+        492   5/23/1970   184.6      70  26.5  
+        493   3/18/1997   195.1      68  29.7  
+        494   1/16/1942   126.3      67  19.8  
+        495    9/5/1972   168.1      66  27.1  
+        496   9/12/1942   194.0      72  26.3  
+        497   8/19/1937   155.1      72  21.0  
+        498   4/10/1959   181.1      72  24.6  
+        499   3/26/1948   239.6      70  34.4  
+        500   1/13/1971   171.2      67  26.8  
+        501   2/13/1952   176.9      67  27.7  
+        502    5/3/1954   138.2      71  19.3  
+        
+        [503 rows x 14 columns]
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{treatments}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}       given\_name       surname    auralin    novodra  hba1c\_start  hba1c\_end  \textbackslash{}
+        0       veronika      jindrová  41u - 48u          -         7.63       7.20   
+        1         elliot    richardson          -  40u - 45u         7.56       7.09   
+        2       yukitaka      takenaka          -  39u - 36u         7.68       7.25   
+        3           skye    gormanston  33u - 36u          -         7.97       7.62   
+        4         alissa        montez          -  33u - 29u         7.78       7.46   
+        5        jasmine         sykes          -  42u - 44u         7.56       7.18   
+        6         sophia        haugen  37u - 42u          -         7.65       7.27   
+        7          eddie        archer  31u - 38u          -         7.89       7.55   
+        8          saber        ménard          -  54u - 54u         8.08       7.70   
+        9           asia       woźniak  30u - 36u          -         7.76       7.37   
+        10        joseph           day  29u - 36u          -         7.70       7.19   
+        11     kristiina        hyypiä          -  36u - 38u         7.87       7.49   
+        12       roxanne     andreyeva  29u - 38u          -         9.54       9.14   
+        13        gregor          bole          -  47u - 45u         7.61       7.16   
+        14        simone  baumgaertner  27u - 37u          -         7.74       7.30   
+        15          enco        žibrik  55u - 68u          -         7.78       7.34   
+        16       camilla      zaitseva  28u - 37u          -         7.53       7.13   
+        17          gina          cain          -  36u - 36u         7.88       7.40   
+        18    addolorata      lombardi          -  49u - 46u         7.75       7.33   
+        19        khalid      johnsrud          -  54u - 54u         8.35       7.94   
+        20          mile        stanić          -  47u - 48u         7.66       7.24   
+        21         tekla       walczak  29u - 39u          -         7.61       7.29   
+        22   brancaleone         russo  53u - 60u          -         8.61       8.18   
+        23      chiemela     tobeolisa          -  43u - 47u         7.59       7.17   
+        24          isac          berg  31u - 41u          -         9.68       9.29   
+        25        benoît        bonami          -  44u - 43u         9.82       9.40   
+        26        suhaim         rahal          -  49u - 47u         7.94       7.50   
+        27        mizuki         iwata          -  45u - 46u         7.70       7.23   
+        28       clinton        miller  42u - 51u          -         7.79       7.40   
+        29        eugene       mironov  42u - 49u          -         7.81       7.48   
+        ..           {\ldots}           {\ldots}        {\ldots}        {\ldots}          {\ldots}        {\ldots}   
+        250         chen           yao          -  56u - 57u         7.90       7.51   
+        251        aksel   vestergaard          -  42u - 38u         9.62       9.29   
+        252        ellen         luman          -  40u - 39u         9.27       8.77   
+        253       albino     schiavone  35u - 43u          -         7.56       7.15   
+        254         jose         combs          -  39u - 36u         7.89       7.42   
+        255       jia li          teng  48u - 54u          -         7.66       7.32   
+        256        ilija        horvat  42u - 50u          -         7.77       7.38   
+        257     mathilde      nørgaard          -  27u - 28u         8.50       8.10   
+        258       csilla      herczegh          -  43u - 46u         7.71       7.27   
+        259      aaliyah          rice          -  31u - 31u         7.64       7.33   
+        260        david      beauvais          -  26u - 23u         7.87       7.47   
+        261     caroline        shuler          -  50u - 54u         7.63       7.27   
+        262         alex      crawford  51u - 62u          -         7.69       7.30   
+        263      rebecca      jephcott  53u - 63u          -         7.96       7.57   
+        264   chukwumoge     ogochukwu          -  41u - 39u         7.95       7.56   
+        265       fearne      mcgregor          -  27u - 29u         7.83       7.48   
+        266       ursula         freud  42u - 54u          -         7.75       7.46   
+        267         leon        scholz          -  38u - 32u         7.72       7.29   
+        268       yasmin        araujo          -  51u - 54u         7.82       7.36   
+        269       hiromu      horikawa          -  47u - 46u         7.77       7.28   
+        270         mika    martinsson  34u - 43u          -         7.50       7.17   
+        271          leo        vieira          -  30u - 33u         7.74       7.36   
+        272       steven           roy          -  41u - 43u         7.87       7.43   
+        273         kate     wilkinson  36u - 39u          -         7.72       7.20   
+        274         naja       enoksen  43u - 50u          -         7.98       7.59   
+        275       albina      zetticci  45u - 51u          -         7.93       7.73   
+        276         john   teichelmann          -  49u - 49u         7.90       7.58   
+        277       mathea       lillebø  23u - 36u          -         9.04       8.67   
+        278       vallie        prince  31u - 38u          -         7.64       7.28   
+        279       samúel  guðbrandsson  53u - 56u          -         8.00       7.64   
+        
+             hba1c\_change  
+        0             NaN  
+        1            0.97  
+        2             NaN  
+        3            0.35  
+        4            0.32  
+        5            0.38  
+        6            0.38  
+        7            0.34  
+        8             NaN  
+        9             NaN  
+        10            NaN  
+        11           0.38  
+        12            NaN  
+        13           0.95  
+        14            NaN  
+        15            NaN  
+        16            NaN  
+        17           0.98  
+        18            NaN  
+        19            NaN  
+        20           0.92  
+        21           0.32  
+        22            NaN  
+        23            NaN  
+        24           0.39  
+        25           0.92  
+        26           0.94  
+        27           0.97  
+        28           0.39  
+        29           0.33  
+        ..            {\ldots}  
+        250          0.39  
+        251           NaN  
+        252          0.50  
+        253           NaN  
+        254           NaN  
+        255          0.34  
+        256          0.39  
+        257          0.90  
+        258           NaN  
+        259          0.31  
+        260           NaN  
+        261           NaN  
+        262          0.39  
+        263          0.39  
+        264          0.39  
+        265          0.35  
+        266          0.29  
+        267          0.93  
+        268          0.96  
+        269           NaN  
+        270          0.33  
+        271           NaN  
+        272          0.94  
+        273           NaN  
+        274           NaN  
+        275          0.20  
+        276           NaN  
+        277          0.37  
+        278          0.36  
+        279          0.36  
+        
+        [280 rows x 7 columns]
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{adverse\PYZus{}reactions}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}      given\_name     surname           adverse\_reaction
+        0         berta  napolitani  injection site discomfort
+        1          lena        baer               hypoglycemia
+        2        joseph         day               hypoglycemia
+        3        flavia  fiorentino                      cough
+        4       manouck     wubbels          throat irritation
+        5       jasmine       sykes               hypoglycemia
+        6        louise     johnson               hypoglycemia
+        7       albinca     komavec               hypoglycemia
+        8           noe      aranda               hypoglycemia
+        9         sofia   hermansen  injection site discomfort
+        10        tegan     johnson                   headache
+        11         abel     yonatan                      cough
+        12    abdul-nur         isa               hypoglycemia
+        13         leon      scholz  injection site discomfort
+        14     gabriele     saenger               hypoglycemia
+        15       jia li        teng                     nausea
+        16        jakob    jakobsen               hypoglycemia
+        17  christopher    woodward                     nausea
+        18          ole    petersen               hypoglycemia
+        19       finley    chandler                   headache
+        20     anenechi       chidi               hypoglycemia
+        21     miłosław  wiśniewski  injection site discomfort
+        22        lixue       hsueh  injection site discomfort
+        23        merci      leroux               hypoglycemia
+        24         kang         mai  injection site discomfort
+        25       elliot  richardson               hypoglycemia
+        26      clinton      miller          throat irritation
+        27       idalia       moore               hypoglycemia
+        28       xiuxiu       chang               hypoglycemia
+        29         alex    crawford               hypoglycemia
+        30       monika      lončar               hypoglycemia
+        31       steven         roy                   headache
+        32      cecilie      nilsen               hypoglycemia
+        33    krisztina      magyar               hypoglycemia
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 503 entries, 0 to 502
+Data columns (total 14 columns):
+patient\_id      503 non-null int64
+assigned\_sex    503 non-null object
+given\_name      503 non-null object
+surname         503 non-null object
+address         491 non-null object
+city            491 non-null object
+state           491 non-null object
+zip\_code        491 non-null float64
+country         491 non-null object
+contact         491 non-null object
+birthdate       503 non-null object
+weight          503 non-null float64
+height          503 non-null int64
+bmi             503 non-null float64
+dtypes: float64(3), int64(2), object(9)
+memory usage: 55.1+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{treatments}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 280 entries, 0 to 279
+Data columns (total 7 columns):
+given\_name      280 non-null object
+surname         280 non-null object
+auralin         280 non-null object
+novodra         280 non-null object
+hba1c\_start     280 non-null float64
+hba1c\_end       280 non-null float64
+hba1c\_change    171 non-null float64
+dtypes: float64(3), object(4)
+memory usage: 15.4+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{adverse\PYZus{}reactions}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 34 entries, 0 to 33
+Data columns (total 3 columns):
+given\_name          34 non-null object
+surname             34 non-null object
+adverse\_reaction    34 non-null object
+dtypes: object(3)
+memory usage: 896.0+ bytes
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{all\PYZus{}columns} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{patients}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{treatments}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{adverse\PYZus{}reactions}\PY{p}{)}\PY{p}{)}
+        \PY{n}{all\PYZus{}columns}\PY{p}{[}\PY{n}{all\PYZus{}columns}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 14    given\_name
+        15       surname
+        21    given\_name
+        22       surname
+        dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{patients}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} ['patient\_id',
+          'assigned\_sex',
+          'given\_name',
+          'surname',
+          'address',
+          'city',
+          'state',
+          'zip\_code',
+          'country',
+          'contact',
+          'birthdate',
+          'weight',
+          'height',
+          'bmi']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{patients}\PY{p}{[}\PY{n}{patients}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}      patient\_id assigned\_sex given\_name      surname address city state  \textbackslash{}
+         209         210       female     Lalita  Eldarkhanov     NaN  NaN   NaN   
+         219         220         male         Mỹ        Quynh     NaN  NaN   NaN   
+         230         231       female  Elisabeth      Knudsen     NaN  NaN   NaN   
+         234         235       female    Martina    Tománková     NaN  NaN   NaN   
+         242         243         male       John      O'Brian     NaN  NaN   NaN   
+         249         250         male   Benjamin       Mehler     NaN  NaN   NaN   
+         257         258         male        Jin         Kung     NaN  NaN   NaN   
+         264         265       female   Wafiyyah       Asfour     NaN  NaN   NaN   
+         269         270       female     Flavia   Fiorentino     NaN  NaN   NaN   
+         278         279       female   Generosa        Cabán     NaN  NaN   NaN   
+         286         287         male      Lewis         Webb     NaN  NaN   NaN   
+         296         297       female        Chỉ          Lâm     NaN  NaN   NaN   
+         
+              zip\_code country contact   birthdate  weight  height   bmi  
+         209       NaN     NaN     NaN   8/14/1950   143.4      62  26.2  
+         219       NaN     NaN     NaN    4/9/1978   237.8      69  35.1  
+         230       NaN     NaN     NaN   9/23/1976   165.9      63  29.4  
+         234       NaN     NaN     NaN    4/7/1936   199.5      65  33.2  
+         242       NaN     NaN     NaN   2/25/1957   205.3      74  26.4  
+         249       NaN     NaN     NaN  10/30/1951   146.5      69  21.6  
+         257       NaN     NaN     NaN   5/17/1995   231.7      69  34.2  
+         264       NaN     NaN     NaN   11/3/1989   158.6      63  28.1  
+         269       NaN     NaN     NaN   10/9/1937   175.2      61  33.1  
+         278       NaN     NaN     NaN  12/16/1962   124.3      69  18.4  
+         286       NaN     NaN     NaN    4/1/1979   155.3      68  23.6  
+         296       NaN     NaN     NaN   5/14/1990   181.1      63  32.1  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}        patient\_id      zip\_code      weight      height         bmi
+         count  503.000000    491.000000  503.000000  503.000000  503.000000
+         mean   252.000000  49084.118126  173.434990   66.634195   27.483897
+         std    145.347859  30265.807442   33.916741    4.411297    5.276438
+         min      1.000000   1002.000000   48.800000   27.000000   17.100000
+         25\%    126.500000  21920.500000  149.300000   63.000000   23.300000
+         50\%    252.000000  48057.000000  175.300000   67.000000   27.200000
+         75\%    377.500000  75679.000000  199.500000   70.000000   31.750000
+         max    503.000000  99701.000000  255.900000   79.000000   37.700000
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{treatments}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}        hba1c\_start   hba1c\_end  hba1c\_change
+         count   280.000000  280.000000    171.000000
+         mean      7.985929    7.589286      0.546023
+         std       0.568638    0.569672      0.279555
+         min       7.500000    7.010000      0.200000
+         25\%       7.660000    7.270000      0.340000
+         50\%       7.800000    7.420000      0.380000
+         75\%       7.970000    7.570000      0.920000
+         max       9.950000    9.580000      0.990000
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}      patient\_id assigned\_sex given\_name      surname              address  \textbackslash{}
+         358         359       female     Amalie  Christensen   3077 Colony Street   
+         83           84         male       Chen          Yao   2566 Ingram Street   
+         486         487         male     Samuel         Blix    3488 Clair Street   
+         68           69       female     Haruna        Azuma  1507 Woodlawn Drive   
+         299         300       female      Linda        Lundy   3964 Walnut Avenue   
+         
+                   city state  zip\_code        country  \textbackslash{}
+         358    Meriden    CT    6450.0  United States   
+         83      Dayton    OH   45407.0  United States   
+         486       Waco    TX   76706.0  United States   
+         68   Milwaukee    WI   53204.0  United States   
+         299     Bovill    ID   83823.0  United States   
+         
+                                                  contact  birthdate  weight  height  \textbackslash{}
+         358  AmalieJChristensen@einrot.com1 203 235 1076  10/1/1941   160.8      63   
+         83               937-523-1224ChenYao@teleworm.us  11/8/1975   214.7      76   
+         486            254-681-4504SamuelBlix@dayrep.com   7/6/1983   211.4      74   
+         68             414-646-4353HarunaAzuma@gustr.com  2/22/1978   149.8      63   
+         299            208-826-1678LindaJLundy@gustr.com  1/29/1969   192.5      69   
+         
+               bmi  
+         358  28.5  
+         83   26.1  
+         486  27.1  
+         68   26.5  
+         299  28.4  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{surname}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Doe              6
+         Taylor           3
+         Jakobsen         3
+         Liễu             2
+         Bùi              2
+         Silva            2
+         Grímsdóttir      2
+         Cindrić          2
+         Lương            2
+         Aranda           2
+         Nilsen           2
+         Parker           2
+         Tucker           2
+         Berg             2
+         Kadyrov          2
+         Souza            2
+         Johnson          2
+         Schiavone        2
+         Kowalczyk        2
+         Dratchev         2
+         Gersten          2
+         Lund             2
+         Hueber           2
+         Cabrera          2
+         Woźniak          2
+         Ogochukwu        2
+         Batukayev        2
+         Lâm              2
+         Correia          2
+         Tạ               2
+                         ..
+         Brodahl          1
+         Gunnarsson       1
+         Nebeolisa        1
+         Jackson          1
+         Uspenskaya       1
+         Ferreira         1
+         Martinsson       1
+         Koffeman         1
+         Okoli            1
+         Christie         1
+         Nørgaard         1
+         Vaara            1
+         Guðjónsdóttir    1
+         Macleod          1
+         Jindrová         1
+         Hansen           1
+         Montagu          1
+         Edwards          1
+         Laine            1
+         Holden           1
+         Henriksen        1
+         Þráinsson        1
+         Chinedum         1
+         Ko               1
+         Tansey           1
+         Villalpando      1
+         Gormanston       1
+         Tuma             1
+         Navrátil         1
+         Lê               1
+         Name: surname, Length: 466, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{address}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 123 Main Street              6
+         2476 Fulton Street           2
+         648 Old Dear Lane            2
+         2778 North Avenue            2
+         2935 Diamond Cove            1
+         1203 Benson Park Drive       1
+         3073 Bedford Street          1
+         2074 Parrish Avenue          1
+         1904 Granville Lane          1
+         707 Gateway Avenue           1
+         353 Whaley Lane              1
+         4605 Hall Street             1
+         465 Southern Street          1
+         2397 Bell Street             1
+         3006 Maple Court             1
+         149 Marion Drive             1
+         323 Platinum Drive           1
+         383 Marion Street            1
+         283 Simons Hollow Road       1
+         4643 Reeves Street           1
+         3209 Crowfield Road          1
+         4103 Musgrave Street         1
+         3499 Baker Avenue            1
+         1810 Hardesty Street         1
+         4704 Edsel Road              1
+         1984 Counts Lane             1
+         4508 Goldcliff Circle        1
+         1271 Pretty View Lane        1
+         1094 Jones Avenue            1
+         4102 Ritter Avenue           1
+                                     ..
+         288 Smith Street             1
+         2704 Windy Ridge Road        1
+         922 Chapmans Lane            1
+         4473 Church Street           1
+         4476 Center Street           1
+         108 Griffin Street           1
+         2121 Liberty Avenue          1
+         1493 Poling Farm Road        1
+         494 Clarksburg Park Road     1
+         2924 Stanley Avenue          1
+         2549 Pearlman Avenue         1
+         1962 Cabell Avenue           1
+         4720 Gordon Street           1
+         2607 Water Street            1
+         4380 Grim Avenue             1
+         3418 Tyler Avenue            1
+         3714 Ben Street              1
+         2333 Hidden Pond Road        1
+         4273 Deans Lane              1
+         883 Oakwood Circle           1
+         1821 Virginia Street         1
+         3343 Jefferson Street        1
+         1813 Lindale Avenue          1
+         649 Nutter Street            1
+         1495 Post Farm Road          1
+         77 Juniper Drive             1
+         936 Lightning Point Drive    1
+         325 Eastland Avenue          1
+         1990 Spring Avenue           1
+         826 Broad Street             1
+         Name: address, Length: 483, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{patients}\PY{p}{[}\PY{n}{patients}\PY{o}{.}\PY{n}{address}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}      patient\_id assigned\_sex given\_name     surname             address  \textbackslash{}
+         29           30         male       Jake    Jakobsen   648 Old Dear Lane   
+         219         220         male         Mỹ       Quynh                 NaN   
+         229         230         male       John         Doe     123 Main Street   
+         230         231       female  Elisabeth     Knudsen                 NaN   
+         234         235       female    Martina   Tománková                 NaN   
+         237         238         male       John         Doe     123 Main Street   
+         242         243         male       John     O'Brian                 NaN   
+         244         245         male       John         Doe     123 Main Street   
+         249         250         male   Benjamin      Mehler                 NaN   
+         251         252         male       John         Doe     123 Main Street   
+         257         258         male        Jin        Kung                 NaN   
+         264         265       female   Wafiyyah      Asfour                 NaN   
+         269         270       female     Flavia  Fiorentino                 NaN   
+         277         278         male       John         Doe     123 Main Street   
+         278         279       female   Generosa       Cabán                 NaN   
+         282         283       female      Sandy      Taylor  2476 Fulton Street   
+         286         287         male      Lewis        Webb                 NaN   
+         296         297       female        Chỉ         Lâm                 NaN   
+         502         503         male        Pat     Gersten   2778 North Avenue   
+         
+                     city     state  zip\_code        country  \textbackslash{}
+         29   Port Jervis  New York   12771.0  United States   
+         219          NaN       NaN       NaN            NaN   
+         229     New York        NY   12345.0  United States   
+         230          NaN       NaN       NaN            NaN   
+         234          NaN       NaN       NaN            NaN   
+         237     New York        NY   12345.0  United States   
+         242          NaN       NaN       NaN            NaN   
+         244     New York        NY   12345.0  United States   
+         249          NaN       NaN       NaN            NaN   
+         251     New York        NY   12345.0  United States   
+         257          NaN       NaN       NaN            NaN   
+         264          NaN       NaN       NaN            NaN   
+         269          NaN       NaN       NaN            NaN   
+         277     New York        NY   12345.0  United States   
+         278          NaN       NaN       NaN            NaN   
+         282     Rainelle        WV   25962.0  United States   
+         286          NaN       NaN       NaN            NaN   
+         296          NaN       NaN       NaN            NaN   
+         502         Burr  Nebraska   68324.0  United States   
+         
+                                                 contact   birthdate  weight  height  \textbackslash{}
+         29   JakobCJakobsen@einrot.com+1 (845) 858-7707    8/1/1985   155.8      67   
+         219                                         NaN    4/9/1978   237.8      69   
+         229                 johndoe@email.com1234567890    1/1/1975   180.0      72   
+         230                                         NaN   9/23/1976   165.9      63   
+         234                                         NaN    4/7/1936   199.5      65   
+         237                 johndoe@email.com1234567890    1/1/1975   180.0      72   
+         242                                         NaN   2/25/1957   205.3      74   
+         244                 johndoe@email.com1234567890    1/1/1975   180.0      72   
+         249                                         NaN  10/30/1951   146.5      69   
+         251                 johndoe@email.com1234567890    1/1/1975   180.0      72   
+         257                                         NaN   5/17/1995   231.7      69   
+         264                                         NaN   11/3/1989   158.6      63   
+         269                                         NaN   10/9/1937   175.2      61   
+         277                 johndoe@email.com1234567890    1/1/1975   180.0      72   
+         278                                         NaN  12/16/1962   124.3      69   
+         282        304-438-2648SandraCTaylor@dayrep.com  10/23/1960   206.1      64   
+         286                                         NaN    4/1/1979   155.3      68   
+         296                                         NaN   5/14/1990   181.1      63   
+         502        PatrickGersten@rhyta.com402-848-4923    5/3/1954   138.2      71   
+         
+               bmi  
+         29   24.4  
+         219  35.1  
+         229  24.4  
+         230  29.4  
+         234  33.2  
+         237  24.4  
+         242  26.4  
+         244  24.4  
+         249  21.6  
+         251  24.4  
+         257  34.2  
+         264  28.1  
+         269  33.1  
+         277  24.4  
+         278  18.4  
+         282  35.4  
+         286  23.6  
+         296  32.1  
+         502  19.3  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{patients}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 210     48.8
+         459    102.1
+         335    102.7
+         74     103.2
+         317    106.0
+         171    106.5
+         51     107.1
+         270    108.1
+         198    108.5
+         48     109.1
+         478    109.6
+         141    110.2
+         38     111.8
+         438    112.0
+         14     112.0
+         235    112.2
+         307    112.4
+         191    112.6
+         408    113.1
+         49     113.3
+         326    114.0
+         338    114.1
+         253    117.0
+         321    118.4
+         168    118.8
+         1      118.8
+         350    119.0
+         207    119.2
+         265    120.0
+         341    120.3
+                {\ldots}  
+         332    224.0
+         252    224.2
+         12     224.2
+         222    224.8
+         166    225.3
+         111    225.9
+         101    226.2
+         150    226.6
+         352    227.7
+         428    227.7
+         88     227.7
+         13     228.4
+         339    229.0
+         182    230.3
+         121    230.8
+         257    231.7
+         395    231.9
+         246    232.1
+         219    237.8
+         11     238.7
+         50     238.9
+         441    239.1
+         499    239.6
+         439    242.0
+         487    242.4
+         144    244.9
+         61     244.9
+         283    245.5
+         118    254.5
+         485    255.9
+         Name: weight, Length: 503, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{weight\PYZus{}lbs} \PY{o}{=} \PY{n}{patients}\PY{p}{[}\PY{n}{patients}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zaitseva}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{weight} \PY{o}{*} \PY{l+m+mf}{2.20462}
+         \PY{n}{height\PYZus{}in} \PY{o}{=} \PY{n}{patients}\PY{p}{[}\PY{n}{patients}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zaitseva}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{height}
+         \PY{n}{bmi\PYZus{}check} \PY{o}{=} \PY{l+m+mi}{703} \PY{o}{*} \PY{n}{weight\PYZus{}lbs} \PY{o}{/} \PY{p}{(}\PY{n}{height\PYZus{}in} \PY{o}{*} \PY{n}{height\PYZus{}in}\PY{p}{)}
+         \PY{n}{bmi\PYZus{}check}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 210    19.055827
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{patients}\PY{p}{[}\PY{n}{patients}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zaitseva}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{bmi}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 210    19.1
+         Name: bmi, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{treatments}\PY{o}{.}\PY{n}{auralin}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{treatments}\PY{o}{.}\PY{n}{novodra}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 0
+\end{Verbatim}
+            
+    \hypertarget{ux8d28ux91cf}{%
+\paragraph{质量}\label{ux8d28ux91cf}}
+
+\hypertarget{patients-ux8868ux683c}{%
+\subparagraph{\texorpdfstring{\texttt{patients}
+表格}{patients 表格}}\label{patients-ux8868ux683c}}
+
+\begin{itemize}
+\tightlist
+\item
+  邮编是浮点，而不是字符串
+\item
+  邮编有时是四位数
+\item
+  Tim Neudorf 的身高是 27 英尺，而不是 72 英尺
+\item
+  有时使用州的全称，其他用简称
+\item
+  Dsvid Gustafsson
+\item
+  缺少人口统计信息 (地址列至联系方式列) \textbf{\emph{(无法清理)}}
+\item
+  错误的数据类型 (指定性别、州、邮编和出生日期列)
+\item
+  多个手机号格式
+\item
+  John Doe 的默认数据
+\item
+  Jakobsen、Gersten、Taylor 多条记录
+\item
+  Zaitseva 体重单位是 kgs，不是 lbs
+\end{itemize}
+
+\hypertarget{treatments-ux8868ux683c}{%
+\subparagraph{\texorpdfstring{\texttt{treatments}
+表格}{treatments 表格}}\label{treatments-ux8868ux683c}}
+
+\begin{itemize}
+\tightlist
+\item
+  缺少 HbA1c 变化
+\item
+  Auralin 和 Novodra 初始剂量和最终剂量中的字母 `u'
+\item
+  小写形式的姓和名
+\item
+  缺少记录 (280 而不是 350)
+\item
+  错误的数据类型 (auralin 和 novodra 列)
+\item
+  HbA1c 变化不准确 (首个 4s 误写为 9s)
+\item
+  auralin 和 novodra 列中空值用破折号 (-) 表示
+\end{itemize}
+
+\hypertarget{adverse_reactions-ux8868ux683c}{%
+\subparagraph{\texorpdfstring{\texttt{adverse\_reactions}
+表格}{adverse\_reactions 表格}}\label{adverse_reactions-ux8868ux683c}}
+
+\begin{itemize}
+\tightlist
+\item
+  小写形式的姓和名
+\end{itemize}
+
+\hypertarget{ux6e05ux6d01ux5ea6}{%
+\paragraph{清洁度}\label{ux6e05ux6d01ux5ea6}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{patients} 表格中的联系方式一列应该拆分为两个变量：手机号和邮箱
+\item
+  \texttt{treatments} 表格两列中的三个变量 (治疗、初始剂量和最终剂量)
+\item
+  不良反应应是 \texttt{treatments} 表格的一部分
+\item
+  \texttt{patients} 表格中的姓和名两列复制到 \texttt{treatments} 和
+  \texttt{adverse\_reactions} 表格中
+\end{itemize}
+
+\hypertarget{ux6e05ux7406}{%
+\subsection{清理}\label{ux6e05ux7406}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{patients\PYZus{}clean} \PY{o}{=} \PY{n}{patients}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{treatments}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{adverse\PYZus{}reactions\PYZus{}clean} \PY{o}{=} \PY{n}{adverse\PYZus{}reactions}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux7f3aux5931ux6570ux636e}{%
+\subsubsection{缺失数据}\label{ux7f3aux5931ux6570ux636e}}
+
+\hypertarget{treatmentsux7f3aux5c11ux8bb0ux5f55-280-ux800cux4e0dux662f-350}{%
+\paragraph{\texorpdfstring{\texttt{treatments}：缺少记录 (280 而不是
+350)}{treatments：缺少记录 (280 而不是 350)}}\label{treatmentsux7f3aux5c11ux8bb0ux5f55-280-ux800cux4e0dux662f-350}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+将切口治疗导入一个 DataFrame 中，并它拼接到初始治疗 DataFrame 中。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{treatments\PYZus{}cut} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatments\PYZus{}cut.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{treatments\PYZus{}clean}\PY{p}{,} \PY{n}{treatments\PYZus{}cut}\PY{p}{]}\PY{p}{,}
+                                      \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}   given\_name     surname    auralin    novodra  hba1c\_start  hba1c\_end  \textbackslash{}
+         0   veronika    jindrová  41u - 48u          -         7.63       7.20   
+         1     elliot  richardson          -  40u - 45u         7.56       7.09   
+         2   yukitaka    takenaka          -  39u - 36u         7.68       7.25   
+         3       skye  gormanston  33u - 36u          -         7.97       7.62   
+         4     alissa      montez          -  33u - 29u         7.78       7.46   
+         
+            hba1c\_change  
+         0           NaN  
+         1          0.97  
+         2           NaN  
+         3          0.35  
+         4          0.32  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}     given\_name     surname    auralin    novodra  hba1c\_start  hba1c\_end  \textbackslash{}
+         415     rovzan     kishiev  32u - 37u          -         7.75       7.41   
+         416      jakob    jakobsen          -  28u - 26u         7.96       7.51   
+         417      bernd   schneider  48u - 56u          -         7.74       7.44   
+         418      berta  napolitani          -  42u - 44u         7.68       7.21   
+         419     armina       sauvé  36u - 46u          -         7.86       7.40   
+         
+              hba1c\_change  
+         415          0.34  
+         416          0.95  
+         417          0.30  
+         418           NaN  
+         419           NaN  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{treatments-ux7f3aux5c11-hba1c-ux53d8ux5316ux548c-hba1c-ux53d8ux5316ux4e0dux51c6ux786e-ux9996ux4e2a-4s-ux8befux5199ux4e3a-9s}{%
+\paragraph{\texorpdfstring{\texttt{treatments}: 缺少 HbA1c 变化和 HbA1c
+变化不准确 (首个 4s 误写为
+9s)}{treatments: 缺少 HbA1c 变化和 HbA1c 变化不准确 (首个 4s 误写为 9s)}}\label{treatments-ux7f3aux5c11-hba1c-ux53d8ux5316ux548c-hba1c-ux53d8ux5316ux4e0dux51c6ux786e-ux9996ux4e2a-4s-ux8befux5199ux4e3a-9s}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+重新计算 \texttt{hba1c\_change} 一列： \texttt{hba1c\_start} 减去
+\texttt{hba1c\_end}。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{hba1c\PYZus{}change} \PY{o}{=} \PY{p}{(}\PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{hba1c\PYZus{}start} \PY{o}{\PYZhy{}} 
+                                          \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{hba1c\PYZus{}end}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{hba1c\PYZus{}change}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 0    0.43
+         1    0.47
+         2    0.43
+         3    0.35
+         4    0.32
+         Name: hba1c\_change, dtype: float64
+\end{Verbatim}
+            
+    \hypertarget{ux6e05ux6d01ux5ea6}{%
+\subsubsection{清洁度}\label{ux6e05ux6d01ux5ea6}}
+
+\hypertarget{patients-ux8868ux683cux4e2dux7684ux8054ux7cfbux65b9ux5f0fux4e00ux5217ux5305ux62ecux4e24ux4e2aux53d8ux91cfux624bux673aux53f7ux548cux90aeux7bb1}{%
+\paragraph{\texorpdfstring{\texttt{patients}
+表格中的联系方式一列包括两个变量：手机号和邮箱}{patients 表格中的联系方式一列包括两个变量：手机号和邮箱}}\label{patients-ux8868ux683cux4e2dux7684ux8054ux7cfbux65b9ux5f0fux4e00ux5217ux5305ux62ecux4e24ux4e2aux53d8ux91cfux624bux673aux53f7ux548cux90aeux7bb1}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+使用正则表达式和 pandas 的 \texttt{str.extract} 方法，从 \emph{联系方式}
+一列提取变量\emph{手机号} 和 \emph{邮箱} 。完成后删除 \emph{联系方式}
+一列。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{phone\PYZus{}number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{contact}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{((?:}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{+}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{1,2\PYZcb{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s)?}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{(?}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{)?[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s.\PYZhy{}]?}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s.\PYZhy{}]?}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{d}\PY{l+s+si}{\PYZob{}4\PYZcb{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{email}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{contact}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{([a\PYZhy{}zA\PYZhy{}Z][a\PYZhy{}zA\PYZhy{}Z0\PYZhy{}9\PYZus{}.+\PYZhy{}]+@[a\PYZhy{}zA\PYZhy{}Z0\PYZhy{}9\PYZhy{}]+}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{.[a\PYZhy{}zA\PYZhy{}Z0\PYZhy{}9\PYZhy{}.][a\PYZhy{}zA\PYZhy{}Z]+)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Note: axis=1 表明我们参考的是一列，而不是一行}
+         \PY{n}{patients\PYZus{}clean} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contact}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} 确认联系方式一列可以运行}
+         \PY{n+nb}{list}\PY{p}{(}\PY{n}{patients\PYZus{}clean}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} ['patient\_id',
+          'assigned\_sex',
+          'given\_name',
+          'surname',
+          'address',
+          'city',
+          'state',
+          'zip\_code',
+          'country',
+          'birthdate',
+          'weight',
+          'height',
+          'bmi',
+          'phone\_number',
+          'email']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{phone\PYZus{}number}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 491         210-222-8684
+         441         559-693-6779
+         130         843-494-0313
+         502         402-848-4923
+         244           1234567890
+         484         336-697-2005
+         65          765-379-3885
+         304         502-902-6188
+         299         208-826-1678
+         60          619-570-3898
+         139    +1 (513) 383-0516
+         397         585-889-5156
+         498         207-477-0579
+         429         218-773-9682
+         315    +1 (830) 851-4280
+         45          731 632 2908
+         496         209 762 2320
+         100         701-676-6301
+         253         321-287-0484
+         307         228-237-2271
+         404         409-944-6516
+         27          985-814-7603
+         295         916 817 9960
+         431         510-376-3772
+         105         919-915-8670
+         Name: phone\_number, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} 确认没有邮箱以整数开头 (正则表达式不能匹配整数)}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{email}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 404               AaliyahRice@dayrep.com
+         11          Abdul-NurMummarIsa@rhyta.com
+         332                AbelEfrem@fleckens.hu
+         258              AbelYonatan@teleworm.us
+         305    AddolorataLombardi@jourrapide.com
+         Name: email, dtype: object
+\end{Verbatim}
+            
+    \hypertarget{treatments-ux8868ux683cux4e24ux5217ux4e2dux7684ux4e09ux4e2aux53d8ux91cf-ux6cbbux7597ux521dux59cbux5242ux91cfux548cux6700ux7ec8ux5242ux91cf}{%
+\paragraph{\texorpdfstring{\texttt{treatments} 表格两列中的三个变量
+(治疗、初始剂量和最终剂量)}{treatments 表格两列中的三个变量 (治疗、初始剂量和最终剂量)}}\label{treatments-ux8868ux683cux4e24ux5217ux4e2dux7684ux4e09ux4e2aux53d8ux91cf-ux6cbbux7597ux521dux59cbux5242ux91cfux548cux6700ux7ec8ux5242ux91cf}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+在 \emph{auralin} 和 \emph{novodra} 两列中加入 \emph{治疗} 和
+\emph{剂量} 列 (这时剂量仍然包含初始剂量和最终剂量)。然后使用破折号 ' -
+' 把剂量列切分，得到 \emph{初始剂量} 和 \emph{最终剂量}
+两列。删除中间使用的 \emph{剂量} 一列。
+
+\hypertarget{code}{%
+\subparagraph{Code}\label{code}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{treatments\PYZus{}clean}\PY{p}{,} \PY{n}{id\PYZus{}vars}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{given\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hba1c\PYZus{}start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hba1c\PYZus{}end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hba1c\PYZus{}change}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{n}{var\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{treatment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{p}{[}\PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{dose} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{treatments\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dose\PYZus{}start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{treatments\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dose\PYZus{}end}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ \PYZhy{} }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{str}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-35-0921b357551d> in <module>()
+          2                            var\_name='treatment', value\_name='dose')
+          3 treatments\_clean = treatments\_clean[treatments\_clean.dose != "-"]
+    ----> 4 treatments\_clean['dose\_start'], treatments\_clean['dose\_end'] = treatments\_clean['dose'].str.split(' - ', 1).str
+          5 treatments\_clean = treatments\_clean.drop('dose', axis=1)
+    
+
+        ValueError: not enough values to unpack (expected 2, got 1)
+
+    \end{Verbatim}
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}   given\_name     surname  hba1c\_start  hba1c\_end  hba1c\_change  treatment  \textbackslash{}
+         0   veronika    jindrová         7.63       7.20          0.43  treatment   
+         1       skye  gormanston         7.97       7.62          0.35  treatment   
+         2     sophia      haugen         7.65       7.27          0.38  treatment   
+         3      eddie      archer         7.89       7.55          0.34  treatment   
+         4       asia     woźniak         7.76       7.37          0.39  treatment   
+         
+               dose  
+         0  auralin  
+         1  auralin  
+         2  auralin  
+         3  auralin  
+         4  auralin  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{ux4e0dux826fux53cdux5e94ux5e94ux662f-treatments-ux8868ux683cux7684ux4e00ux90e8ux5206}{%
+\paragraph{\texorpdfstring{不良反应应是 \texttt{treatments}
+表格的一部分}{不良反应应是 treatments 表格的一部分}}\label{ux4e0dux826fux53cdux5e94ux5e94ux662f-treatments-ux8868ux683cux7684ux4e00ux90e8ux5206}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+将 \emph{不良反应} 一列合并到 \texttt{treatments} 表格中，按照 \emph{名}
+和 \emph{姓}进行合并。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{treatments\PYZus{}clean}\PY{p}{,} \PY{n}{adverse\PYZus{}reactions\PYZus{}clean}\PY{p}{,}
+                                     \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{given\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{treatments\PYZus{}clean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}         given\_name        surname  hba1c\_start  hba1c\_end  hba1c\_change  \textbackslash{}
+         0         veronika       jindrová         7.63       7.20          0.43   
+         1             skye     gormanston         7.97       7.62          0.35   
+         2           sophia         haugen         7.65       7.27          0.38   
+         3            eddie         archer         7.89       7.55          0.34   
+         4             asia        woźniak         7.76       7.37          0.39   
+         5           joseph            day         7.70       7.19          0.51   
+         6          roxanne      andreyeva         9.54       9.14          0.40   
+         7           simone   baumgaertner         7.74       7.30          0.44   
+         8             enco         žibrik         7.78       7.34          0.44   
+         9          camilla       zaitseva         7.53       7.13          0.40   
+         10           tekla        walczak         7.61       7.29          0.32   
+         11     brancaleone          russo         8.61       8.18          0.43   
+         12            isac           berg         9.68       9.29          0.39   
+         13         clinton         miller         7.79       7.40          0.39   
+         14          eugene        mironov         7.81       7.48          0.33   
+         15     szilveszter          totth         7.70       7.38          0.32   
+         16       alexander      mathiesen         7.96       7.55          0.41   
+         17             chỉ            lâm         7.68       7.24          0.44   
+         18       władysław      wieczorek         7.92       7.47          0.45   
+         19        kristján        ingason         7.92       7.57          0.35   
+         20          marija       grubišić         7.53       7.15          0.38   
+         21           sauli     koivuniemi         7.67       7.37          0.30   
+         22         mariana          souza         7.86       7.51          0.35   
+         23      kristoffer      martinsen         9.18       8.64          0.54   
+         24              mỹ          quynh         7.61       7.16          0.45   
+         25            oles        zhdanov         7.52       7.11          0.41   
+         26         triana.       terrazas         7.71       7.34          0.37   
+         27          gabryŝ    tomaszewski         7.87       7.47          0.40   
+         28       leixandre         alanis         7.74       7.32          0.42   
+         29    onyekachukwu         obinna         7.58       7.12          0.46   
+         {\ldots}            {\ldots}            {\ldots}          {\ldots}        {\ldots}           {\ldots}   
+         1230          jane        citizen         7.98       7.60          0.38   
+         1231        angela     lavrentyev         7.61       7.14          0.47   
+         1232        edelma    villalpando         7.99       7.56          0.43   
+         1233        annika          vaara         7.73       7.34          0.39   
+         1234         chiho           higa         7.71       7.30          0.41   
+         1235     beatrycze        woźniak         7.54       7.17          0.37   
+         1236      miłosław     wiśniewski         7.51       7.08          0.43   
+         1237       firenze          fodor         7.89       7.55          0.34   
+         1238           zoe        wellish         7.71       7.30          0.41   
+         1239           una  traustadóttir         8.00       7.50          0.50   
+         1240         luboš          pecha         7.79       7.45          0.34   
+         1241         meaza         brhane         7.70       7.36          0.34   
+         1242         adlan       shishani         7.84       7.37          0.47   
+         1243         sofia      hermansen         8.90       8.57          0.33   
+         1244         guðni      heimisson         7.64       7.24          0.40   
+         1245       eufemio        rosario         7.54       7.26          0.28   
+         1246      dalmacia         madrid         7.67       7.21          0.46   
+         1247         daimy          tromp         9.41       8.94          0.47   
+         1248        jeremy        montagu         7.68       7.36          0.32   
+         1249       nebechi      ekechukwu         7.78       7.39          0.39   
+         1250       satsita      batukayev         7.63       7.25          0.38   
+         1251       timothy         cotton         7.92       7.52          0.40   
+         1252       bjørnar         nilsen         7.99       7.70          0.29   
+         1253         borna      šlezinger         7.55       7.18          0.37   
+         1254          mary          adams         7.65       7.26          0.39   
+         1255   christopher       woodward         7.51       7.06          0.45   
+         1256         maret       sultygov         7.67       7.30          0.37   
+         1257         lixue          hsueh         9.21       8.80          0.41   
+         1258         jakob       jakobsen         7.96       7.51          0.45   
+         1259         berta     napolitani         7.68       7.21          0.47   
+         
+               treatment     dose           adverse\_reaction  
+         0     treatment  auralin                        NaN  
+         1     treatment  auralin                        NaN  
+         2     treatment  auralin                        NaN  
+         3     treatment  auralin                        NaN  
+         4     treatment  auralin                        NaN  
+         5     treatment  auralin               hypoglycemia  
+         6     treatment  auralin                        NaN  
+         7     treatment  auralin                        NaN  
+         8     treatment  auralin                        NaN  
+         9     treatment  auralin                        NaN  
+         10    treatment  auralin                        NaN  
+         11    treatment  auralin                        NaN  
+         12    treatment  auralin                        NaN  
+         13    treatment  auralin          throat irritation  
+         14    treatment  auralin                        NaN  
+         15    treatment  auralin                        NaN  
+         16    treatment  auralin                        NaN  
+         17    treatment  auralin                        NaN  
+         18    treatment  auralin                        NaN  
+         19    treatment  auralin                        NaN  
+         20    treatment  auralin                        NaN  
+         21    treatment  auralin                        NaN  
+         22    treatment  auralin                        NaN  
+         23    treatment  auralin                        NaN  
+         24    treatment  auralin                        NaN  
+         25    treatment  auralin                        NaN  
+         26    treatment  auralin                        NaN  
+         27    treatment  auralin                        NaN  
+         28    treatment  auralin                        NaN  
+         29    treatment  auralin                        NaN  
+         {\ldots}         {\ldots}      {\ldots}                        {\ldots}  
+         1230   dose\_end      38u                        NaN  
+         1231   dose\_end      24u                        NaN  
+         1232   dose\_end      26u                        NaN  
+         1233   dose\_end      21u                        NaN  
+         1234   dose\_end      46u                        NaN  
+         1235   dose\_end      27u                        NaN  
+         1236   dose\_end      33u  injection site discomfort  
+         1237   dose\_end      35u                        NaN  
+         1238   dose\_end      33u                        NaN  
+         1239   dose\_end      34u                        NaN  
+         1240   dose\_end      27u                        NaN  
+         1241   dose\_end      41u                        NaN  
+         1242   dose\_end      40u                        NaN  
+         1243   dose\_end      34u  injection site discomfort  
+         1244   dose\_end      36u                        NaN  
+         1245   dose\_end      40u                        NaN  
+         1246   dose\_end      23u                        NaN  
+         1247   dose\_end      45u                        NaN  
+         1248   dose\_end      52u                        NaN  
+         1249   dose\_end      39u                        NaN  
+         1250   dose\_end      42u                        NaN  
+         1251   dose\_end      25u                        NaN  
+         1252   dose\_end      33u                        NaN  
+         1253   dose\_end      41u                        NaN  
+         1254   dose\_end      33u                        NaN  
+         1255   dose\_end      51u                     nausea  
+         1256   dose\_end      23u                        NaN  
+         1257   dose\_end      23u  injection site discomfort  
+         1258   dose\_end      26u               hypoglycemia  
+         1259   dose\_end      44u  injection site discomfort  
+         
+         [1260 rows x 8 columns]
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{patients-ux8868ux683cux4e2dux7684ux59d3ux548cux540dux4e24ux5217ux590dux5236ux5230-treatments-ux548c-adverse_reactions-ux8868ux683cux4e2dux4ee5ux53caux5c0fux5199ux5f62ux5f0fux7684ux59d3ux548cux540d}{%
+\paragraph{\texorpdfstring{\texttt{patients} 表格中的姓和名两列复制到
+\texttt{treatments} 和 \texttt{adverse\_reactions}
+表格中，以及小写形式的姓和名}{patients 表格中的姓和名两列复制到 treatments 和 adverse\_reactions 表格中，以及小写形式的姓和名}}\label{patients-ux8868ux683cux4e2dux7684ux59d3ux548cux540dux4e24ux5217ux590dux5236ux5230-treatments-ux548c-adverse_reactions-ux8868ux683cux4e2dux4ee5ux53caux5c0fux5199ux5f62ux5f0fux7684ux59d3ux548cux540d}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+我们不再需要不良反应表格，所以忽略这部分内容。在 \texttt{patients}
+表格中，提取病人编号和姓名，然后把这些名字改为小写形式，加入到
+\texttt{treatments} 表格中。然后删除治疗表格中的姓和名两列
+(这样小写形式不再是问题了)。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{id\PYZus{}names} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{patient\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{given\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{id\PYZus{}names}\PY{o}{.}\PY{n}{given\PYZus{}name} \PY{o}{=} \PY{n}{id\PYZus{}names}\PY{o}{.}\PY{n}{given\PYZus{}name}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{id\PYZus{}names}\PY{o}{.}\PY{n}{surname} \PY{o}{=} \PY{n}{id\PYZus{}names}\PY{o}{.}\PY{n}{surname}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{treatments\PYZus{}clean}\PY{p}{,} \PY{n}{id\PYZus{}names}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{given\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{given\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{surname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}MaleBird\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}generic.py:4405: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  self[name] = value
+
+    \end{Verbatim}
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} 确认进行了正确融合}
+         \PY{n}{treatments\PYZus{}clean}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}       hba1c\_start  hba1c\_end  hba1c\_change   treatment     dose  \textbackslash{}
+         0            7.63       7.20          0.43   treatment  auralin   
+         1            7.63       7.20          0.43  dose\_start      41u   
+         2            7.63       7.20          0.43    dose\_end      48u   
+         3            7.97       7.62          0.35   treatment  auralin   
+         4            7.97       7.62          0.35  dose\_start      33u   
+         5            7.97       7.62          0.35    dose\_end      36u   
+         6            7.65       7.27          0.38   treatment  auralin   
+         7            7.65       7.27          0.38  dose\_start      37u   
+         8            7.65       7.27          0.38    dose\_end      42u   
+         9            7.89       7.55          0.34   treatment  auralin   
+         10           7.89       7.55          0.34  dose\_start      31u   
+         11           7.89       7.55          0.34    dose\_end      38u   
+         12           7.76       7.37          0.39   treatment  auralin   
+         13           7.76       7.37          0.39  dose\_start      30u   
+         14           7.76       7.37          0.39    dose\_end      36u   
+         15           7.70       7.19          0.51   treatment  auralin   
+         16           7.70       7.19          0.51   treatment  auralin   
+         17           7.70       7.19          0.51  dose\_start      29u   
+         18           7.70       7.19          0.51  dose\_start      29u   
+         19           7.70       7.19          0.51    dose\_end      36u   
+         20           7.70       7.19          0.51    dose\_end      36u   
+         21           9.54       9.14          0.40   treatment  auralin   
+         22           9.54       9.14          0.40  dose\_start      29u   
+         23           9.54       9.14          0.40    dose\_end      38u   
+         24           7.74       7.30          0.44   treatment  auralin   
+         25           7.74       7.30          0.44  dose\_start      27u   
+         26           7.74       7.30          0.44    dose\_end      37u   
+         27           7.78       7.34          0.44   treatment  auralin   
+         28           7.78       7.34          0.44  dose\_start      55u   
+         29           7.78       7.34          0.44    dose\_end      68u   
+         {\ldots}           {\ldots}        {\ldots}           {\ldots}         {\ldots}      {\ldots}   
+         1227         7.51       7.06          0.45   treatment  novodra   
+         1228         7.51       7.06          0.45   treatment  novodra   
+         1229         7.51       7.06          0.45  dose\_start      55u   
+         1230         7.51       7.06          0.45  dose\_start      55u   
+         1231         7.51       7.06          0.45    dose\_end      51u   
+         1232         7.51       7.06          0.45    dose\_end      51u   
+         1233         7.67       7.30          0.37   treatment  novodra   
+         1234         7.67       7.30          0.37   treatment  novodra   
+         1235         7.67       7.30          0.37  dose\_start      26u   
+         1236         7.67       7.30          0.37  dose\_start      26u   
+         1237         7.67       7.30          0.37    dose\_end      23u   
+         1238         7.67       7.30          0.37    dose\_end      23u   
+         1239         9.21       8.80          0.41   treatment  novodra   
+         1240         9.21       8.80          0.41   treatment  novodra   
+         1241         9.21       8.80          0.41  dose\_start      22u   
+         1242         9.21       8.80          0.41  dose\_start      22u   
+         1243         9.21       8.80          0.41    dose\_end      23u   
+         1244         9.21       8.80          0.41    dose\_end      23u   
+         1245         7.96       7.51          0.45   treatment  novodra   
+         1246         7.96       7.51          0.45   treatment  novodra   
+         1247         7.96       7.51          0.45  dose\_start      28u   
+         1248         7.96       7.51          0.45  dose\_start      28u   
+         1249         7.96       7.51          0.45    dose\_end      26u   
+         1250         7.96       7.51          0.45    dose\_end      26u   
+         1251         7.68       7.21          0.47   treatment  novodra   
+         1252         7.68       7.21          0.47   treatment  novodra   
+         1253         7.68       7.21          0.47  dose\_start      42u   
+         1254         7.68       7.21          0.47  dose\_start      42u   
+         1255         7.68       7.21          0.47    dose\_end      44u   
+         1256         7.68       7.21          0.47    dose\_end      44u   
+         
+                        adverse\_reaction  patient\_id  
+         0                           NaN         225  
+         1                           NaN         225  
+         2                           NaN         225  
+         3                           NaN         242  
+         4                           NaN         242  
+         5                           NaN         242  
+         6                           NaN         345  
+         7                           NaN         345  
+         8                           NaN         345  
+         9                           NaN         276  
+         10                          NaN         276  
+         11                          NaN         276  
+         12                          NaN          15  
+         13                          NaN          15  
+         14                          NaN          15  
+         15                 hypoglycemia          70  
+         16                 hypoglycemia          70  
+         17                 hypoglycemia          70  
+         18                 hypoglycemia          70  
+         19                 hypoglycemia          70  
+         20                 hypoglycemia          70  
+         21                          NaN          18  
+         22                          NaN          18  
+         23                          NaN          18  
+         24                          NaN         424  
+         25                          NaN         424  
+         26                          NaN         424  
+         27                          NaN         292  
+         28                          NaN         292  
+         29                          NaN         292  
+         {\ldots}                         {\ldots}         {\ldots}  
+         1227                     nausea         153  
+         1228                     nausea         153  
+         1229                     nausea         153  
+         1230                     nausea         153  
+         1231                     nausea         153  
+         1232                     nausea         153  
+         1233                        NaN         420  
+         1234                        NaN         420  
+         1235                        NaN         420  
+         1236                        NaN         420  
+         1237                        NaN         420  
+         1238                        NaN         420  
+         1239  injection site discomfort         336  
+         1240  injection site discomfort         336  
+         1241  injection site discomfort         336  
+         1242  injection site discomfort         336  
+         1243  injection site discomfort         336  
+         1244  injection site discomfort         336  
+         1245               hypoglycemia          25  
+         1246               hypoglycemia          25  
+         1247               hypoglycemia          25  
+         1248               hypoglycemia          25  
+         1249               hypoglycemia          25  
+         1250               hypoglycemia          25  
+         1251  injection site discomfort         477  
+         1252  injection site discomfort         477  
+         1253  injection site discomfort         477  
+         1254  injection site discomfort         477  
+         1255  injection site discomfort         477  
+         1256  injection site discomfort         477  
+         
+         [1257 rows x 7 columns]
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} Patient ID should be the only duplicate column}
+         \PY{n}{all\PYZus{}columns} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{patients\PYZus{}clean}\PY{p}{)} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n}{treatments\PYZus{}clean}\PY{p}{)}\PY{p}{)}
+         \PY{n}{all\PYZus{}columns}\PY{p}{[}\PY{n}{all\PYZus{}columns}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 21    patient\_id
+         dtype: object
+\end{Verbatim}
+            
+    \hypertarget{ux8d28ux91cf}{%
+\subsubsection{质量}\label{ux8d28ux91cf}}
+
+\hypertarget{ux90aeux7f16ux662fux6d6eux70b9ux800cux4e0dux662fux5b57ux7b26ux4e32ux6709ux65f6ux662fux56dbux4f4dux6570}{%
+\paragraph{邮编是浮点，而不是字符串，有时是四位数}\label{ux90aeux7f16ux662fux6d6eux70b9ux800cux4e0dux662fux5b57ux7b26ux4e32ux6709ux65f6ux662fux56dbux4f4dux6570}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+Convert the zip code column's data type from a float to a string 使用
+\texttt{astype}
+把邮件一列的数据类型从浮点转换为字符串，使用字符串分割删除
+`.0'。在四位数邮编前面加上 0。
+
+\hypertarget{code}{%
+\subparagraph{Code}\label{code}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{zip\PYZus{}code} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{zip\PYZus{}code}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{pad}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fillchar}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} 对于上面代码转化后的\PYZsq{}0000n\PYZsq{}非数字条目，进行再次转化}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{zip\PYZus{}code} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{zip\PYZus{}code}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0000n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{zip\PYZus{}code}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 0    92390
+         1    61812
+         2    68467
+         3    07095
+         4    36303
+         Name: zip\_code, dtype: object
+\end{Verbatim}
+            
+    \hypertarget{tim-neudorf-ux7684ux8eabux9ad8ux662f-27-ux82f1ux5c3aux800cux4e0dux662f-72-ux82f1ux5c3a}{%
+\paragraph{Tim Neudorf 的身高是 27 英尺，而不是 72
+英尺}\label{tim-neudorf-ux7684ux8eabux9ad8ux662f-27-ux82f1ux5c3aux800cux4e0dux662f-72-ux82f1ux5c3a}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+在 \texttt{patients} 表格中身高为 27 英尺 (仅有一个)
+的一行身高，替换为72英尺。
+
+\hypertarget{code}{%
+\subparagraph{Code}\label{code}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{height} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{height}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mi}{27}\PY{p}{,} \PY{l+m+mi}{72}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} 应为空}
+         \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{height} \PY{o}{==} \PY{l+m+mi}{27}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} Empty DataFrame
+         Columns: [patient\_id, assigned\_sex, given\_name, surname, address, city, state, zip\_code, country, birthdate, weight, height, bmi, phone\_number, email]
+         Index: []
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} 确认完成替换}
+         \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neudorf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}    patient\_id assigned\_sex given\_name  surname               address    city  \textbackslash{}
+         4           5         male        Tim  Neudorf  1428 Turkey Pen Lane  Dothan   
+         
+           state zip\_code        country  birthdate  weight  height   bmi  \textbackslash{}
+         4    AL    36303  United States  2/18/1928   192.3      72  26.1   
+         
+            phone\_number                email  
+         4  334-515-7487  TimNeudorf@cuvox.de  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{ux6709ux65f6ux4f7fux7528ux5ddeux7684ux5168ux79f0ux5176ux4ed6ux7528ux7b80ux79f0}{%
+\paragraph{有时使用州的全称，其他用简称}\label{ux6709ux65f6ux4f7fux7528ux5ddeux7684ux5168ux79f0ux5176ux4ed6ux7528ux7b80ux79f0}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+使用函数，将 California (加利福尼亚)、New York (纽约)、Illinois
+(伊利诺伊)、Florida (佛罗里达) 和 Nebrask (内布拉斯加)
+等州的全称转变为简称。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} 从州的全称映射到简称}
+         \PY{n}{state\PYZus{}abbrev} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{California}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{New York}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Illinois}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Florida}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nebraska}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} 使用的函数}
+         \PY{k}{def} \PY{n+nf}{abbreviate\PYZus{}state}\PY{p}{(}\PY{n}{patient}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{patient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{in} \PY{n}{state\PYZus{}abbrev}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{abbrev} \PY{o}{=} \PY{n}{state\PYZus{}abbrev}\PY{p}{[}\PY{n}{patient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+                 \PY{k}{return} \PY{n}{abbrev}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{patient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+         \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{abbreviate\PYZus{}state}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{state}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} CA    60
+         NY    47
+         TX    32
+         IL    24
+         MA    22
+         FL    22
+         PA    18
+         GA    15
+         OH    14
+         LA    13
+         MI    13
+         OK    13
+         NJ    12
+         VA    11
+         MS    10
+         WI    10
+         AL     9
+         MN     9
+         IN     9
+         TN     9
+         NC     8
+         WA     8
+         KY     8
+         MO     7
+         ID     6
+         NV     6
+         KS     6
+         NE     6
+         IA     5
+         CT     5
+         SC     5
+         ND     4
+         ME     4
+         AR     4
+         CO     4
+         AZ     4
+         RI     4
+         OR     3
+         SD     3
+         MD     3
+         DE     3
+         WV     3
+         VT     2
+         DC     2
+         MT     2
+         NH     1
+         AK     1
+         WY     1
+         NM     1
+         Name: state, dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{dsvid-gustafsson}{%
+\paragraph{Dsvid Gustafsson}\label{dsvid-gustafsson}}
+
+\hypertarget{define}{%
+\subparagraph{Define}\label{define}}
+
+在 \texttt{patients} 表格中含有名 `Dsvid' 的一行里替换为'David'。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{given\PYZus{}name} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{given\PYZus{}name}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dsvid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{David}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gustafsson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}    patient\_id assigned\_sex given\_name     surname             address  \textbackslash{}
+         8           9         male      David  Gustafsson  1790 Nutter Street   
+         
+                   city state zip\_code        country birthdate  weight  height   bmi  \textbackslash{}
+         8  Kansas City    MO    64105  United States  3/6/1937   163.9      66  26.5   
+         
+            phone\_number                        email  
+         8  816-265-9578  DavidGustafsson@armyspy.com  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{ux9519ux8befux7684ux6570ux636eux7c7bux578b-ux6307ux5b9aux6027ux522bux5ddeux90aeux7f16ux548cux51faux751fux65e5ux671fux5217-ux548cux9519ux8befux7684ux6570ux636eux7c7bux578b-auralin-ux548c-novodra-ux5217ux4ee5ux53ca-auralin-ux548c-novodra-ux521dux59cbux5242ux91cfux548cux6700ux7ec8ux5242ux91cfux4e2dux7684ux5b57ux6bcd-u}{%
+\paragraph{错误的数据类型 (指定性别、州、邮编和出生日期列)
+和错误的数据类型 (auralin 和 novodra 列)，以及 Auralin 和 Novodra
+初始剂量和最终剂量中的字母
+`u'}\label{ux9519ux8befux7684ux6570ux636eux7c7bux578b-ux6307ux5b9aux6027ux522bux5ddeux90aeux7f16ux548cux51faux751fux65e5ux671fux5217-ux548cux9519ux8befux7684ux6570ux636eux7c7bux578b-auralin-ux548c-novodra-ux5217ux4ee5ux53ca-auralin-ux548c-novodra-ux521dux59cbux5242ux91cfux548cux6700ux7ec8ux5242ux91cfux4e2dux7684ux5b57ux6bcd-u}}
+
+\hypertarget{define}{%
+\subparagraph{Define}\label{define}}
+
+将指定性别和州转化为分类数据类型。上面已经解决了邮编的数据类型。把出生日期转化为
+datetime 数据类型。在初始剂量和最终剂量中添加字母
+`u'，并把这些列转化为整数数据类型。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} 转为分类数据类型}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{assigned\PYZus{}sex} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{assigned\PYZus{}sex}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{state} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{state}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 转为 datetime 类型}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{birthdate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{birthdate}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 添加 u 并转为整数类型}
+         \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{dose\PYZus{}start} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{dose\PYZus{}start}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{dose\PYZus{}end} \PY{o}{=} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{dose\PYZus{}end}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-52-b6ece2a9ac84> in <module>()
+          7 
+          8 \# 添加 u 并转为整数类型
+    ----> 9 treatments\_clean.dose\_start = treatments\_clean.dose\_start.str.strip('u').astype(int)
+         10 treatments\_clean.dose\_end = treatments\_clean.dose\_end.str.strip('u').astype(int)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}generic.py in \_\_getattr\_\_(self, name)
+       4374             if self.\_info\_axis.\_can\_hold\_identifiers\_and\_holds\_name(name):
+       4375                 return self[name]
+    -> 4376             return object.\_\_getattribute\_\_(self, name)
+       4377 
+       4378     def \_\_setattr\_\_(self, name, value):
+    
+
+        AttributeError: 'DataFrame' object has no attribute 'dose\_start'
+
+    \end{Verbatim}
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 503 entries, 0 to 502
+Data columns (total 15 columns):
+patient\_id      503 non-null int64
+assigned\_sex    503 non-null category
+given\_name      503 non-null object
+surname         503 non-null object
+address         491 non-null object
+city            491 non-null object
+state           491 non-null category
+zip\_code        491 non-null object
+country         491 non-null object
+birthdate       503 non-null datetime64[ns]
+weight          503 non-null float64
+height          503 non-null int64
+bmi             503 non-null float64
+phone\_number    491 non-null object
+email           491 non-null object
+dtypes: category(2), datetime64[ns](1), float64(2), int64(2), object(8)
+memory usage: 53.9+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{treatments\PYZus{}clean}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 1257 entries, 0 to 1256
+Data columns (total 7 columns):
+hba1c\_start         1257 non-null float64
+hba1c\_end           1257 non-null float64
+hba1c\_change        1257 non-null float64
+treatment           1257 non-null object
+dose                1257 non-null object
+adverse\_reaction    129 non-null object
+patient\_id          1257 non-null int64
+dtypes: float64(3), int64(1), object(3)
+memory usage: 78.6+ KB
+
+    \end{Verbatim}
+
+    \hypertarget{ux591aux4e2aux624bux673aux53f7ux683cux5f0f}{%
+\paragraph{多个手机号格式}\label{ux591aux4e2aux624bux673aux53f7ux683cux5f0f}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+增加所有的 " ``、''-``、''(``,'')" 和
+``+''，存储所有没有格式的数字。如果手机号只有 10 位数，在手机号前添加 1
+(我们需要国家编号)。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{phone\PYZus{}number} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{phone\PYZus{}number}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{D+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{pad}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{n}{fillchar}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{phone\PYZus{}number}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} 0    19517199170
+         1    12175693204
+         2    14023636804
+         3    17326368246
+         4    13345157487
+         Name: phone\_number, dtype: object
+\end{Verbatim}
+            
+    \hypertarget{john-doe-ux7684ux9ed8ux8ba4ux6570ux636e}{%
+\paragraph{John Doe
+的默认数据}\label{john-doe-ux7684ux9ed8ux8ba4ux6570ux636e}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+从 \texttt{patients} 表格中删除不可恢复的 John Doe 记录。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{patients\PYZus{}clean} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Doe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} 应该没有 Doe 记录}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} Jakobsen         3
+         Taylor           3
+         Lund             2
+         Cabrera          2
+         Hueber           2
+         Silva            2
+         Batukayev        2
+         Dratchev         2
+         Grímsdóttir      2
+         Gersten          2
+         Cindrić          2
+         Kowalczyk        2
+         Schiavone        2
+         Lương            2
+         Aranda           2
+         Nilsen           2
+         Parker           2
+         Tucker           2
+         Berg             2
+         Liễu             2
+         Lâm              2
+         Souza            2
+         Kadyrov          2
+         Woźniak          2
+         Johnson          2
+         Ogochukwu        2
+         Bùi              2
+         Correia          2
+         Tạ               2
+         Collins          2
+                         ..
+         Ferguson         1
+         Endrizzi         1
+         Mehler           1
+         Ferreira         1
+         Montagu          1
+         Martinsson       1
+         Koffeman         1
+         Okoli            1
+         Christie         1
+         Nørgaard         1
+         Vaara            1
+         Guðjónsdóttir    1
+         Macleod          1
+         Jindrová         1
+         Hansen           1
+         Uspenskaya       1
+         Laine            1
+         Nebeolisa        1
+         Holden           1
+         Henriksen        1
+         Þráinsson        1
+         Chinedum         1
+         Ko               1
+         Tansey           1
+         Villalpando      1
+         Gormanston       1
+         Tuma             1
+         Navrátil         1
+         Edwards          1
+         Lê               1
+         Name: surname, Length: 465, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} 应该没有 123 Main Street 记录}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{address}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} 2476 Fulton Street           2
+         648 Old Dear Lane            2
+         2778 North Avenue            2
+         383 Marion Street            1
+         3073 Bedford Street          1
+         2074 Parrish Avenue          1
+         1904 Granville Lane          1
+         707 Gateway Avenue           1
+         353 Whaley Lane              1
+         4605 Hall Street             1
+         465 Southern Street          1
+         2397 Bell Street             1
+         3006 Maple Court             1
+         149 Marion Drive             1
+         2935 Diamond Cove            1
+         323 Platinum Drive           1
+         633 Better Street            1
+         4643 Reeves Street           1
+         3209 Crowfield Road          1
+         4103 Musgrave Street         1
+         3499 Baker Avenue            1
+         1810 Hardesty Street         1
+         4704 Edsel Road              1
+         1984 Counts Lane             1
+         4508 Goldcliff Circle        1
+         1271 Pretty View Lane        1
+         1094 Jones Avenue            1
+         4102 Ritter Avenue           1
+         4291 Patton Lane             1
+         1203 Benson Park Drive       1
+                                     ..
+         288 Smith Street             1
+         2704 Windy Ridge Road        1
+         922 Chapmans Lane            1
+         4473 Church Street           1
+         4476 Center Street           1
+         108 Griffin Street           1
+         2121 Liberty Avenue          1
+         1493 Poling Farm Road        1
+         494 Clarksburg Park Road     1
+         2924 Stanley Avenue          1
+         2549 Pearlman Avenue         1
+         1962 Cabell Avenue           1
+         4720 Gordon Street           1
+         2607 Water Street            1
+         4380 Grim Avenue             1
+         3418 Tyler Avenue            1
+         3714 Ben Street              1
+         2333 Hidden Pond Road        1
+         4273 Deans Lane              1
+         883 Oakwood Circle           1
+         1821 Virginia Street         1
+         3343 Jefferson Street        1
+         1813 Lindale Avenue          1
+         649 Nutter Street            1
+         1495 Post Farm Road          1
+         77 Juniper Drive             1
+         936 Lightning Point Drive    1
+         325 Eastland Avenue          1
+         1990 Spring Avenue           1
+         826 Broad Street             1
+         Name: address, Length: 482, dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{jakobsengerstentaylor-ux591aux6761ux8bb0ux5f55}{%
+\paragraph{Jakobsen、Gersten、Taylor
+多条记录}\label{jakobsengerstentaylor-ux591aux6761ux8bb0ux5f55}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+从 \texttt{patients} 表格中删除 Jake Jakobsen、Pat Gersten 和 Sandy
+Taylor。这些是昵称，不应该出现在 \texttt{treatments} 表格中
+(删除错误名字可以保证 \texttt{patients} 和 \texttt{treatments}
+表格的一致性问题)。这些是复制后第二次出现。这些是唯一出现的非空值复制地址。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} 波浪符号表示否： http://pandas.pydata.org/pandas\PYZhy{}docs/stable/indexing.html\PYZsh{}boolean\PYZhy{}indexing}
+         \PY{n}{patients\PYZus{}clean} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{p}{(}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{address}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{address}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \hypertarget{test}{%
+\subparagraph{Test}\label{test}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jakobsen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}      patient\_id assigned\_sex given\_name   surname             address  \textbackslash{}
+         24           25         male      Jakob  Jakobsen   648 Old Dear Lane   
+         432         433       female      Karen  Jakobsen  1690 Fannie Street   
+         
+                     city state zip\_code        country  birthdate  weight  height  \textbackslash{}
+         24   Port Jervis    NY    12771  United States 1985-08-01   155.8      67   
+         432      Houston    TX    77020  United States 1962-11-25   185.2      67   
+         
+               bmi phone\_number                         email  
+         24   24.4  18458587707     JakobCJakobsen@einrot.com  
+         432  29.0  19792030438  KarenJakobsen@jourrapide.com  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gersten}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:}     patient\_id assigned\_sex given\_name  surname            address  city  \textbackslash{}
+         97          98         male    Patrick  Gersten  2778 North Avenue  Burr   
+         
+            state zip\_code        country  birthdate  weight  height   bmi  \textbackslash{}
+         97    NE    68324  United States 1954-05-03   138.2      71  19.3   
+         
+            phone\_number                     email  
+         97  14028484923  PatrickGersten@rhyta.com  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{patients\PYZus{}clean}\PY{p}{[}\PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taylor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:}      patient\_id assigned\_sex given\_name surname             address      city  \textbackslash{}
+         131         132       female     Sandra  Taylor  2476 Fulton Street  Rainelle   
+         426         427         male    Rogelio  Taylor  4064 Marigold Lane     Miami   
+         
+             state zip\_code        country  birthdate  weight  height   bmi  \textbackslash{}
+         131    WV    25962  United States 1960-10-23   206.1      64  35.4   
+         426    FL    33179  United States 1992-09-02   186.6      69  27.6   
+         
+             phone\_number                       email  
+         131  13044382648    SandraCTaylor@dayrep.com  
+         426  13054346299  RogelioJTaylor@teleworm.us  
+\end{Verbatim}
+            
+    .dataframe thead tr:only-child th \{ text-align: right; \}
+
+    \hypertarget{zaitseva-ux4f53ux91cdux5355ux4f4dux662f-kgsux4e0dux662f-lbs}{%
+\paragraph{Zaitseva 体重单位是 kgs，不是
+lbs}\label{zaitseva-ux4f53ux91cdux5355ux4f4dux662f-kgsux4e0dux662f-lbs}}
+
+\hypertarget{ux5b9aux4e49}{%
+\subparagraph{定义}\label{ux5b9aux4e49}}
+
+使用 \href{https://stackoverflow.com/a/44913631}{高级索引} 把姓是
+Zaitseva 的行隔离出来，并把体重单元格中的 kg 改为 lbs。
+
+\hypertarget{ux4ee3ux7801}{%
+\subparagraph{代码}\label{ux4ee3ux7801}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{weight\PYZus{}kg} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{210}\PY{p}{]}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{surname} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zaitseva}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{column\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{mask}\PY{p}{,} \PY{n}{column\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{n}{weight\PYZus{}kg} \PY{o}{*} \PY{l+m+mf}{2.20462}
+\end{Verbatim}
+
+
+    \hypertarget{ux6d4bux8bd5}{%
+\subparagraph{测试}\label{ux6d4bux8bd5}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} 48.8 不应该是最低的}
+         \PY{n}{patients\PYZus{}clean}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 459    102.100000
+         335    102.700000
+         74     103.200000
+         317    106.000000
+         171    106.500000
+         51     107.100000
+         210    107.585456
+         270    108.100000
+         198    108.500000
+         48     109.100000
+         478    109.600000
+         141    110.200000
+         38     111.800000
+         438    112.000000
+         14     112.000000
+         235    112.200000
+         307    112.400000
+         191    112.600000
+         408    113.100000
+         49     113.300000
+         326    114.000000
+         338    114.100000
+         253    117.000000
+         321    118.400000
+         168    118.800000
+         1      118.800000
+         350    119.000000
+         207    119.200000
+         265    120.000000
+         341    120.300000
+                   {\ldots}    
+         332    224.000000
+         12     224.200000
+         252    224.200000
+         222    224.800000
+         166    225.300000
+         111    225.900000
+         101    226.200000
+         150    226.600000
+         88     227.700000
+         352    227.700000
+         428    227.700000
+         13     228.400000
+         339    229.000000
+         182    230.300000
+         121    230.800000
+         257    231.700000
+         395    231.900000
+         246    232.100000
+         219    237.800000
+         11     238.700000
+         50     238.900000
+         441    239.100000
+         499    239.600000
+         439    242.000000
+         487    242.400000
+         144    244.900000
+         61     244.900000
+         283    245.500000
+         118    254.500000
+         485    255.900000
+         Name: weight, Length: 494, dtype: float64
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
